@@ -1,4 +1,4 @@
-# ericjinks.com
+# hmassaoudi.com
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![dependencies](https://david-dm.org/jinksi/ericjinks.com.svg)](https://david-dm.org/jinksi/ericjinks.com)
