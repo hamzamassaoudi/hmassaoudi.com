@@ -253,7 +253,14 @@ It is worth mentioning that this model is very sensitive to features choice. I r
 
 It is true that CRFs are well suited to named-entity recognition task, but other deep learning models have shown a better performance. 
 
-RNNs architectures are known to be able to capture the dependence between input variables. LSTM deep learning models can be a good alternative to try. Some recent works also include  contextual embedding of words using attention. 
+RNNs architectures are known to be able to capture the dependence between input variables. LSTM deep learning models can be a good alternative to try. Some recent works also include contextual embedding of words using attention (BERT, XLNet, etc.) which might boost model's performance.
+
+# Reference
+
+1. [*Classifying Semantic Relations in Bioscience Text*, Barbara Rosario and Marti A. Hearst, in the proceedings of the 42nd Annual Meeting of the Association for Computational Linguistics (ACL 2004), Barcelona, July 2004.](https://biotext.berkeley.edu/dis_treat_data.html)
+2. [sklearn-crfsuite documentation](https://sklearn-crfsuite.readthedocs.io/en/latest/index.html)
+3. [An Introduction to Conditional Random Fields By Charles Sutton and Andrew McCallum](https://homepages.inf.ed.ac.uk/csutton/publications/crftut-fnt.pdf)
+4. Anonymization of Unstructured Data Via Named-Entity Recognition by Fadi Hassan Et Al.
 
 
 
