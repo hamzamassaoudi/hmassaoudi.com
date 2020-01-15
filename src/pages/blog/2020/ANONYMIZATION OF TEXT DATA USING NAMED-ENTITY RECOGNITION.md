@@ -15,7 +15,7 @@ Named-entity recognition (also known as entity identification) seeks to identify
 
 NER is a very challenging learning problem. On the one hand, Supervised training data is very scarce. On the other, this task require language specific knowledge to construct efficient structured features.
 
- In our example, we are looking to anonymize medic al diagnoses reports by identifying disease names. Thus, our problem is equivalent to a binary classification of names.
+ In our example, we are looking to anonymize medical diagnoses reports by identifying disease names. Thus, our problem is equivalent to a binary classification of names.
 
 > Example : **Testicular cancer ** and **endometriosis**  have increased in incidence during the last decades .
 
@@ -25,14 +25,14 @@ NER is a very challenging learning problem. On the one hand, Supervised training
 
 ![method](/images/uploads/blog2020/methodo.png)
 
-As a proof of concept, I will be focusing on locating disease names in medical reports using a model based on conditional random fields. 
+As a proof of concept, We will be focusing on locating disease names in medical reports using a model based on conditional random fields. 
 
-In practice, given a sentence, the model will tag each word with a `"DISEASE" `tag if it is a disease name and ` "O" ` otherwise,  which indicates that a token belongs to no chunk (outside).
+In practice, given a sentence, the model will tag each word with a `"DISEASE" ` tag if it is a disease name and ` "O" ` tag otherwise,  which indicates that a token belongs to no chunk (outside).
 
 1. First, we load the labeled data, which is a list of sentences and their corresponding labels
 2. The second step is the tokenizer, which splits sentences into tokens
-3. In this step, we use a feature generator to extract reliable features with a window of 3 words (the current word, the previous and the next words)
-4. The final step uses a CRF to train an NER model.
+3. We use a feature generator to extract reliable features with a window of 3 words (the current word, the previous and the next words)
+4. The final step uses a CRF to train a NER model.
 
 # Training Data
 
@@ -73,7 +73,7 @@ These models are considered to be the discriminative equivalents of the hidden M
 
 #### Generative and Discriminative Models
 
-Generative models' approach might seem counterintuitive. They describe how a target vector y (in our case : it is the vector representing labels of each word in a sentence) can probabilistically "generate" a feature vector x (words in our case). Discriminative models are more intuitive because they are working backwards, they describe how to assign a label y to a feature vector x.
+Generative models' approach might seem counterintuitive. They describe how a target vector y (type of words in our case) can probabilistically "generate" a feature vector x (words in our case). Discriminative models are more intuitive because they are working backwards, they describe how to assign a label y to a feature vector x.
 
 In principle, we can see that the approaches are distinct. They work in two opposite directions,  but theoretically, we can always convert between the two methods using Bayes rule.
 
@@ -85,13 +85,15 @@ To sum up, Generative and discriminative may have the same purpose which is calc
 
 CRFs methods can be seen as the discriminative analog of  generative Hidden Markov models. They can also be understood as a generalization of the logistic regression classifier to arbitrary graphical structures.
 
-Since our named-entity recognition task rely on predicting a label of each word based on context and not only on word's features. We will try CRFs methods, we will provide an implementations using [pycrfsuite](https://python-crfsuite.readthedocs.io/en/latest/).
+Since our named-entity recognition task rely on predicting labels based on context and not only on each word's features, CRFs methods might be a good choice to begin with.
+
+We will try in the next section ton implement CRFs methods using [pycrfsuite](https://python-crfsuite.readthedocs.io/en/latest/).
 
 #### Implementation
 
-Now that we explained the motivation behind using CRFs model for Named Entity recognition, let's dive directly into code. We will see how to implement those methods on our dataset.
+Now that we explained the motivation behind using CRFs model for Named Entity recognition, let's dive directly into code.
 
-First, we begin by calculating features for each word with a window of 3 words, which means that we also include features of next and previous words.
+First, we begin by calculating features for each word with a window of 3 words, which means that we also include features of next and previous word.
 
 Here, we calculate features like : word parts, POS tags, word dependencies, lemma, shape (the shape of the word, example: "CRFs" -> "XXXx"), and other boolean variables like : isupper (check if characters are in uppercase), istitle (check if the first character is in uppercase), isdigit (check whether the word consists of digits only), is_stop (check whether the word is a stop word), etc.
 
