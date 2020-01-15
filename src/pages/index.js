@@ -36,7 +36,7 @@ export default ({ location }) => {
               <Col>
                 <ProfilePic whiteTheme={whiteTheme} size={125} />
                 <Title>
-                  <div className="background animate-translate" />
+                  <div className="background" />
                   <span>Hamza Massaoudi</span>
                 </Title>
                 <TextContainer>
