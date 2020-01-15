@@ -33,7 +33,7 @@ export default ({ location, image, title, date, author }) => {
         )}
         <Flex column alignCenter>
           <Title white>
-            <div className="background animate-translate animate-translate-mobile" />
+            <div className="background" />
             <span>{title}</span>
           </Title>
           <Meta date={date} author={author} location={location} />
