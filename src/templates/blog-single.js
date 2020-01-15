@@ -8,6 +8,7 @@ import MarkdownContent from '../components/MarkdownContent'
 import SocialMeta from '../components/SocialMeta'
 import PostHeader from '../components/PostHeader'
 import PostFooter from '../components/PostFooter'
+import "katex/dist/katex.min.css"
 
 import { Container, Section, TextContainer } from '../components/common'
 

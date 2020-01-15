@@ -122,7 +122,7 @@ export default createGlobalStyle`
 
     code {
       background: none;
-      color: #ABB2BF;
+      color: #bcaaa4;
       padding: 2rem;
     }
 
@@ -130,6 +130,7 @@ export default createGlobalStyle`
 
   blockquote {
     background: whitesmoke;
+    border-left: 10px solid #3E140C;
     padding: 2rem;
     width: 100%;
     border-radius: 2px;
@@ -140,6 +141,7 @@ export default createGlobalStyle`
       margin-bottom: 0;
     }
   }
+
 
   .animate-translate {
     display: block;
