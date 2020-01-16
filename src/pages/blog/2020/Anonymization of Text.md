@@ -5,7 +5,7 @@ excerpt: Using Conditional Random Fields to anonymize sensitive information
 date: 2020-01-08
 cardimage: './ner_crf.png'
 ---
-Anonymization of data has become a very trendy topic in recent years. It had been widely addressed by the data community due to its growing importance to all companies collecting personal and sensitive information. 
+Anonymization of data has become a very trendy topic in recent years. It has been widely addressed by the data community due to its growing importance to all companies collecting personal and sensitive information. 
 
 While structured data is standardized and relatively easy to anonymize, dealing with unstructured data is more tedious. There is no database schema that can be used to measure privacy risk. In this blog, I propose to use a named-entity recognition system (NER) to automatically detect textual confidential attributes such as identifiers, sensitive information, etc. In this case study, I will consider that these confidential information to be detected are disease names in medical diagnoses.
 
