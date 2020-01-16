@@ -3,7 +3,7 @@
 title: Anonymization of text data using Named-Entity Recognition
 excerpt: Using Conditional Random Fields to anonymize sensitive information
 date: 2020-01-08
-cardimage: './ner_crf.jpg'
+cardimage: './ner_crf.png'
 ---
 Anonymization of data became a very trendy topic in recent years. It had been widely addressed by the data community due to its growing importance to all companies collecting personal and sensitive information. 
 
