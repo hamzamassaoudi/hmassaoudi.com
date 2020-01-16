@@ -87,7 +87,7 @@ CRFs methods can be seen as the discriminative analog of  generative Hidden Mark
 
 Since our named-entity recognition task relies on predicting labels based on context and not only on each word's features, CRFs methods might be a good choice to begin with.
 
-We will try in the next section ton implement CRFs methods using [pycrfsuite](https://python-crfsuite.readthedocs.io/en/latest/).
+We will try in the next section to implement CRFs methods using [pycrfsuite](https://python-crfsuite.readthedocs.io/en/latest/).
 
 #### Implementation
 
