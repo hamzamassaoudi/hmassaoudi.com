@@ -1,11 +1,11 @@
 ---
 
-title: ANONYMIZATION OF TEXT DATA USING NAMED-ENTITY RECOGNITION
-excerpt: Using CONDITIONAL RANDOM FIELD ALGORITHM TO ANONYMIZE SENSITIVE INFORMATION
+title: Anonymization of text data using Named-Entity Recognition
+excerpt: Using Conditional Random Fields to anonymize sensitive information
 date: 2020-01-08
 cardimage: './serverless-r-card.jpg'
 ---
-Anonymization of data became a very trendy topic in recent years. It had been widely adressed by the data community due to its growing importance to all companies collecting personal and sensitive information. 
+Anonymization of data became a very trendy topic in recent years. It had been widely addressed by the data community due to its growing importance to all companies collecting personal and sensitive information. 
 
 While structured data is standardized and relatively easy to anonymize, dealing with unstructured data is more tedious. There is no database schema that can be used to measure privacy risk. In this blog, I propose to use a named-entity recognition system (NER) to automatically detect textual confidential attributes such as identifiers, sensitive information, etc. In this case study, I will consider that these confidential information to be detected are disease names in medical diagnoses.
 
@@ -13,7 +13,7 @@ While structured data is standardized and relatively easy to anonymize, dealing 
 
 Named-entity recognition (also known as entity identification) seeks to identify and classify words in an unstructured text into pre-defined categories.
 
-NER is a very challenging learning problem. On the one hand, Supervised training data is very scarce. On the other, this task require language specific knowledge to construct efficient structured features.
+NER is a very challenging learning problem. On the one hand, Supervised training data is very scarce. On the other, this task requires language specific knowledge to construct efficient structured features.
 
  In our example, we are looking to anonymize medical diagnoses reports by identifying disease names. Thus, our problem is equivalent to a binary classification of names.
 
@@ -25,18 +25,18 @@ NER is a very challenging learning problem. On the one hand, Supervised training
 
 ![method](/images/uploads/blog2020/methodo.png)
 
-As a proof of concept, We will be focusing on locating disease names in medical reports using a model based on conditional random fields. 
+As proof of concept, We will be focusing on locating disease names in medical reports using a model based on conditional random fields. 
 
 In practice, given a sentence, the model will tag each word with a `"DISEASE" ` tag if it is a disease name and ` "O" ` tag otherwise,  which indicates that a token belongs to no chunk (outside).
 
 1. First, we load the labeled data, which is a list of sentences and their corresponding labels
 2. The second step is the tokenizer, which splits sentences into tokens
 3. We use a feature generator to extract reliable features with a window of 3 words (the current word, the previous and the next words)
-4. The final step uses a CRF to train a NER model.
+4. The final step uses a CRFs to train a NER model.
 
 # Training Data
 
-In our experiments, we took advantage of medical texts that were labeled to study the semantic relationships between diseases and treatments. These [files](https://biotext.berkeley.edu/dis_treat_data.html) were obtained from MEDLINE 2001 using the first 100 titles and the first 40 abstracts from the 59 files medline01n*.xml. These data contain 3,654 labeled sentences. The labels are: ”DISONLY”, ”TREATONLY”, ”TREAT PREV”, ”DIS PREV”, ”TREAT SIDE EFF”, ”DIS SIDE EFF”, ”DIS VAG”, ”TREAT VAG”, ”TREAT NO” and”DIS NO”. Because we were only interested in diseases, we only used the 629 sentences with the ”DISONLY” label.
+In our experiments, we took advantage of medical texts that were labeled to study the semantic relationships between diseases and treatments. These [files](https://biotext.berkeley.edu/dis_treat_data.html) were obtained from MEDLINE 2001 using the first 100 titles and the first 40 abstracts from the 59 files medline01n*.xml. These data contain 3,654 labeled sentences. The labels are: ”DISONLY”, ”TREATONLY”, ”TREAT PREV”, ”DIS PREV”, ”TREAT SIDE EFF”, ”DIS SIDE EFF”, ”DIS VAG”, ”TREAT VAG”, ”TREAT NO” and ”DIS NO”. Because we were only interested in diseases, we only used the 629 sentences with the ”DISONLY” label.
 
 After formatting and tokenizing raw text data, it looks like this :
 
@@ -59,9 +59,9 @@ Out:
 
 ![method](/images/uploads/blog2020/input_data.png)
 
-So basically, disease data is a list of tuples, each tuple (tokens, labels) represent a sentence divided to tokens and corresponding labels. Where 1 stands for disease name and 0 for other than disease name.
+So basically, disease data is a list of tuples, each tuple (tokens, labels) represent a sentence divided into tokens and corresponding labels. Where 1 stands for disease name and 0 for other than disease names.
 
-The disease name in the example above  is "Head-neck carcinomas". Thus, the last 2 labels are both equal to 1.
+The disease name in the example above  is "head-neck carcinomas". Thus, the last 2 labels are both equal to 1.
 
 # Conditional Random Fields
 
@@ -73,11 +73,11 @@ These models are considered to be the discriminative equivalents of the hidden M
 
 #### Generative and Discriminative Models
 
-Generative models' approach might seem counterintuitive. They describe how a target vector y (type of words in our case) can probabilistically "generate" a feature vector x (words in our case). Discriminative models are more intuitive because they are working backwards, they describe how to assign a label y to a feature vector x.
+Generative models' approach might seem counterintuitive. They describe how a target vector y (type of words in our case) can probabilistically "generate" a feature vector x (words in our case). Discriminative models are more intuitive because they are working backward, they describe how to assign a label y to a feature vector x.
 
 In principle, we can see that the approaches are distinct. They work in two opposite directions,  but theoretically, we can always convert between the two methods using Bayes rule.
 
-For example, in the naive Bayes model, it is easy to convert the joint probability **p(x,y) = p(y)p(x/y)** into a conditional distribution **p(y/x)**. But in practice, we never have the exact true distribution to calculate the conditional distribution. We can end up with two different estimations of p(y/x). 
+For example, in the naive Bayes model, it is easy to convert the joint probability **p(x,y) = p(y)p(x/y)** into a conditional distribution **p(y/x)**. But in practice, we never have the exact true distribution to calculate the conditional distribution. We can end up with two different estimations of p(y/x).
 
 To sum up, Generative and discriminative may have the same purpose which is calculating the conditional probability p(y/x), but they proceed in two different ways.
 
@@ -85,7 +85,7 @@ To sum up, Generative and discriminative may have the same purpose which is calc
 
 CRFs methods can be seen as the discriminative analog of  generative Hidden Markov models. They can also be understood as a generalization of the logistic regression classifier to arbitrary graphical structures.
 
-Since our named-entity recognition task rely on predicting labels based on context and not only on each word's features, CRFs methods might be a good choice to begin with.
+Since our named-entity recognition task relies on predicting labels based on context and not only on each word's features, CRFs methods might be a good choice to begin with.
 
 We will try in the next section ton implement CRFs methods using [pycrfsuite](https://python-crfsuite.readthedocs.io/en/latest/).
 
@@ -93,9 +93,9 @@ We will try in the next section ton implement CRFs methods using [pycrfsuite](ht
 
 Now that we explained the motivation behind using CRFs model for Named Entity recognition, let's dive directly into code.
 
-First, we begin by calculating features for each word with a window of 3 words, which means that we also include features of next and previous word.
+First, we begin by calculating features for each word with a window of 3 words, which means that we also include features of next and previous words.
 
-Here, we calculate features like : word parts, POS tags, word dependencies, lemma, shape (the shape of the word, example: "CRFs" -> "XXXx"), and other boolean variables like : isupper (check if characters are in uppercase), istitle (check if the first character is in uppercase), isdigit (check whether the word consists of digits only), is_stop (check whether the word is a stop word), etc.
+Here, we calculate features like word parts, POS tags, word dependencies, lemma, shape (the shape of the word, example: "CRFs" -> "XXXx"), and other boolean variables like isupper (check if characters are in uppercase), istitle (check if the first character is in uppercase), isdigit (check whether the word consists of digits only), is_stop (check whether the word is a stop word), etc.
 
 Sklearn-crfsuite supports several input formats; here we use feature lists.
 
@@ -183,7 +183,7 @@ X_test = [sent2features(s[0]) for s in test_data]
 y_test = [s[1] for s in test_data]
 ```
 
-Once we defined the training and the test sets, we can begin training the model
+Once we defined the training and the test sets, we can begin training the model.
 
 ```Python
 trainer = pycrfsuite.Trainer(verbose=False)
@@ -212,7 +212,7 @@ We begin by defining a trainer which is mainly our CRFs model, we then define so
 
 # Results and conclusion 
 
-After training the model let's see how to calculate the labels for a given test example:
+After training the model, let's see how to calculate the labels for a given test example:
 
 ```Python
 tagger = pycrfsuite.Tagger()
@@ -228,7 +228,7 @@ Out:
 
 ![output](/images/uploads/blog2020/output.png)
 
-As we can see, the model predict it right this time, but it may surely miss some disease names. Let's measure the overall performance.
+As we can see, the model predicts it right this time, but it may surely miss some disease names. Let's measure the overall performance.
 
 ```python
 outputs = []
@@ -249,13 +249,15 @@ Out:
 
 ![measure](/images/uploads/blog2020/measure.png)
 
-We can see that the precision is much better than recall, which means that the number of false positives (Other names that are detected as disease names) is not that high. Still, there is a lot of disease names that are indetectable by the model. It might be explained by the size of training dataset.
+We can see that the precision is much better than recall, which means that the number of false positives (Other names that are detected as disease names) is not that high. Still, there is a lot of disease names that are undetectable by the model. It might be explained by the size of the training dataset.
 
 It is worth mentioning that this model is very sensitive to features choice. I recommend the reader to delete or add features of his choice to test the model.
 
-It is true that CRFs are well suited to named-entity recognition task, but other deep learning models have shown a better performance. 
+CRFs are indeed well suited to named-entity recognition task, but other deep learning models have shown a better performance. For example, RNNs architectures are known to be able to capture the dependence between input variables. Some recent works also include contextual embedding of words using attention (BERT, XLNet, etc.) which might boost model's performance.
 
-RNNs architectures are known to be able to capture the dependence between input variables. LSTM deep learning models can be a good alternative to try. Some recent works also include contextual embedding of words using attention (BERT, XLNet, etc.) which might boost model's performance.
+So, that’s it for today, I hope it helped you understand how to apply NER task to text annonymization and how to implement your CRFs model. Feel free to share the blog if you want to.
+
+You can find full code in my [GitHub page](https://github.com/hamzamassaoudi/CRF_NER)
 
 # Reference
 
