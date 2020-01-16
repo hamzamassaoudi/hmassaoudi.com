@@ -3,7 +3,7 @@
 title: Anonymization of text data using Named-Entity Recognition
 excerpt: Using Conditional Random Fields to anonymize sensitive information
 date: 2020-01-08
-cardimage: './serverless-r-card.jpg'
+cardimage: './ner_crf.jpg'
 ---
 Anonymization of data became a very trendy topic in recent years. It had been widely addressed by the data community due to its growing importance to all companies collecting personal and sensitive information. 
 
@@ -255,7 +255,7 @@ It is worth mentioning that this model is very sensitive to features choice. I r
 
 CRFs are indeed well suited to named-entity recognition task, but other deep learning models have shown a better performance. For example, RNNs architectures are known to be able to capture the dependence between input variables. Some recent works also include contextual embedding of words using attention (BERT, XLNet, etc.) which might boost model's performance.
 
-So, that’s it for today, I hope it helped you understand how to apply NER task to text annonymization and how to implement your CRFs model. Feel free to share the blog if you want to.
+So, that’s it for today, I hope it helped you understand how to apply NER task to text annonymization and how to implement your first CRFs model. Feel free to share the blog if you want to.
 
 You can find full code in my [GitHub page](https://github.com/hamzamassaoudi/CRF_NER)
 
